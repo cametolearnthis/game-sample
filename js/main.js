@@ -28,18 +28,18 @@ class Player {
   }
   moveRight() {
     if (this.positionX < 90) {
-      this.positionX += 5;
+      this.positionX ++;
     } else if (this.position >= 90) {
-      this.positionX += 0;
+      this.positionX ;
     }
     //console.log("new position...." + this.positionX )
     this.domElement.style.left = this.positionX + "vw"; //always counting from the left
   }
   moveLeft() {
     if (this.positionX > 0) {
-      this.positionX -= 5;
+      this.positionX --;
     } else if (this.position <= 0) {
-      this.positionX -= 0;
+      this.positionX;
     }
     //console.log("new position...." + this.positionX )
     this.domElement.style.left = this.positionX + "vw";
