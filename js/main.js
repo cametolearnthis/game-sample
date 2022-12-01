@@ -116,7 +116,7 @@ setInterval(() => {
     }
   });
 
-  //collision detections
+  
 
 }, 50);
 
