@@ -1,3 +1,13 @@
 body {
-    background-color: aqua;
+    margin: 0;
+    padding: 0;
+}
+#board {
+    height: 100vh;
+    position: relative;
+    background-color: rgb(197, 38, 65);
+}
+#player {
+    position: absolute;
+    background-color: blue;
 }
