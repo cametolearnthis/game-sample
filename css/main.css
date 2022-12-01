@@ -11,3 +11,7 @@ body {
     position: absolute;
     background-color: blue;
 }
+.obstacle {
+    position: absolute;
+    background-color: black;
+}
