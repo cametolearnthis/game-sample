@@ -1,3 +1,65 @@
+class Game {
+  constructor() {
+    this.player = null;
+    this.obstacles = [];
+  }
+  start() {
+    this.player = new Player();
+    this.attachEventListeners();
+    //Create random obstacles
+    setInterval(() => {
+      const newObstacle = new Obstacle();
+      this.obstacles.push(newObstacle);
+    }, 3000);
+
+    // Move obstacles & detect collisions
+    setInterval(() => {
+      //move all obstacles
+      this.obstacles.forEach((obstacleInstance) => {
+        //move current obstacle
+        obstacleInstance.moveDown();
+        //detect if there's a collision between player and current obstacle
+        this.detectCollision(obstacleInstance);
+
+        //check if we need to remove current obstacle
+        this.removeObstacleIfOutside(obstacleInstance);
+      });
+    }, 50);
+  }
+
+  attachEventListeners() {
+    //Attach event listeners
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") {
+        this.player.moveRight();
+      } else if (event.key === "ArrowLeft") {
+        this.player.moveLeft();
+      }
+    });
+  }
+  detectCollision(obstacleInstance) {
+    if (
+      this.player.positionX <
+        obstacleInstance.positionX + obstacleInstance.width &&
+      this.player.positionX + this.player.width > obstacleInstance.positionX &&
+      this.player.positionY <
+        obstacleInstance.positionY + obstacleInstance.height &&
+      this.player.height + this.player.positionY > obstacleInstance.positionY
+    ) {
+      console.log("collision");
+      //location.href = 'gameover.html';
+    }
+  }
+  removeObstacleIfOutside(obstacleInstance) {
+    if (obstacleInstance.positionY === 0 - obstacleInstance.height) {
+      //console.log('remove obstacle with position...', obstacleInstance.positionY);
+      obstacleInstance.domElement.remove();
+
+      this.obstacles.shift();
+      console.log(this.obstacles.length);
+    }
+  }
+}
 class Player {
   constructor() {
     this.width = 10;
@@ -78,65 +140,5 @@ class Obstacle {
     this.domElement.style.bottom = this.positionY + "vh";
   }
 }
-const player = new Player();
-const obstacles = []; //will hold instances of the class Obstacle
-
-//Attach event listeners
-document.addEventListener("keydown", function (event) {
-  if (event.key === "ArrowRight") {
-    player.moveRight();
-  } else if (event.key === "ArrowLeft") {
-    player.moveLeft();
-  }
-});
-
-//Create random obstacles
-setInterval(() => {
-  const newObstacle = new Obstacle();
-  obstacles.push(newObstacle);
-}, 3000);
-
-// Move obstacles & detect collisions
-setInterval(() => {
-  //move all obstacles
-  obstacles.forEach((obstacleInstance) => {
-    //move current obstacle
-    obstacleInstance.moveDown();
-    //detect if there's a collision between player and current obstacle
-    if (
-      player.positionX < obstacleInstance.positionX + obstacleInstance.width &&
-      player.positionX + player.width > obstacleInstance.positionX &&
-      player.positionY < obstacleInstance.positionY + obstacleInstance.height &&
-      player.height + player.positionY > obstacleInstance.positionY
-    ) {
-      console.log("collision");
-      //location.href = 'gameover.html';
-    }
-//  check if we need to remove current obstacle
-
-    if(obstacleInstance.positionY === 0 - obstacleInstance.height){
-      //console.log('remove obstacle with position...', obstacleInstance.positionY);
-      obstacleInstance.domElement.remove();
-      
-      obstacles.shift();
-      console.log(obstacles.length);
-    } 
-  });
-}, 50);
-
-/*
-let time = 0;
-
-setInterval(() => {
-  obstacles.forEach((obstacleInstance) => {
-    time++;
-
-    if (time % 10) {
-
-    }
-    obstacleInstance.moveDown();
-  });
-}, 50);
-*/
-
-//remove obstacles when they go down, a bonus
+const game = new Game();
+game.start();
