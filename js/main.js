@@ -48,9 +48,9 @@ class Player {
 
 class Obstacle {
   constructor() {
-    this.width = 20;
-    this.height = 10;
-    this.positionX = 50 - this.width / 2;
+    this.width = 10;
+    this.height = 20;
+    this.positionX = Math.floor((Math.random() * 100) - (this.width/2)) //50 - this.width / 2;//random value
     this.positionY = 80;
     //the highest positionX, the more to the right it starts (100 is the maximum)
 
@@ -112,7 +112,8 @@ setInterval(() => {
       player.positionY < obstacleInstance.positionY + obstacleInstance.height &&
       player.height + player.positionY > obstacleInstance.positionY
     ) {
-      console.log('collision')
+      //console.log('collision')
+      location.href = 'gameover.html';
     }
   });
 
