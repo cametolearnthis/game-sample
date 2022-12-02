@@ -6,6 +6,7 @@ body {
     height: 100vh;
     position: relative;
     background-color: rgb(197, 38, 65);
+    overflow: hidden;
 }
 #player {
     position: absolute;

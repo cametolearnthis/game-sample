@@ -50,7 +50,7 @@ class Obstacle {
   constructor() {
     this.width = 10;
     this.height = 20;
-    this.positionX = Math.floor((Math.random() * 100) - (this.width/2)) //50 - this.width / 2;//random value
+    this.positionX = Math.floor(Math.random() * 100 - this.width / 2); //50 - this.width / 2;//random value
     this.positionY = 80;
     //the highest positionX, the more to the right it starts (100 is the maximum)
 
@@ -79,8 +79,7 @@ class Obstacle {
   }
 }
 const player = new Player();
-const obstacles = [];//will hold instances of the class Obstacle
-
+const obstacles = []; //will hold instances of the class Obstacle
 
 //Attach event listeners
 document.addEventListener("keydown", function (event) {
@@ -95,9 +94,7 @@ document.addEventListener("keydown", function (event) {
 setInterval(() => {
   const newObstacle = new Obstacle();
   obstacles.push(newObstacle);
-}, 3000)
-
-
+}, 3000);
 
 // Move obstacles & detect collisions
 setInterval(() => {
@@ -112,17 +109,20 @@ setInterval(() => {
       player.positionY < obstacleInstance.positionY + obstacleInstance.height &&
       player.height + player.positionY > obstacleInstance.positionY
     ) {
-      //console.log('collision')
-      location.href = 'gameover.html';
+      console.log("collision");
+      //location.href = 'gameover.html';
     }
+//  check if we need to remove current obstacle
+
+    if(obstacleInstance.positionY === 0 - obstacleInstance.height){
+      //console.log('remove obstacle with position...', obstacleInstance.positionY);
+      obstacleInstance.domElement.remove();
+      
+      obstacles.shift();
+      console.log(obstacles.length);
+    } 
   });
-
-  
-
 }, 50);
-
-
-
 
 /*
 let time = 0;
@@ -140,4 +140,3 @@ setInterval(() => {
 */
 
 //remove obstacles when they go down, a bonus
-
