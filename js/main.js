@@ -140,5 +140,6 @@ class Obstacle {
     this.domElement.style.bottom = this.positionY + "vh";
   }
 }
+
 const game = new Game();
 game.start();
